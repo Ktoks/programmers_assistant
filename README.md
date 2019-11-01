@@ -1,4 +1,4 @@
-# Jarvis
+# Programmer's Assistant
 
 > Using voice recognition software
 > Create an 'ai' that can run commands you speak (in linux terminal in the background)?
@@ -7,14 +7,14 @@
 
 ## First time use
 
-> python3 jarvis.py user_name
+> python3 programmers_assistant.py user_name
 > if configuration file doesn't exist:
 > jarvis will run through and get configuration options from the user
 > some will be required, some will be optional
 
 ## Regular use
 
-> python3 jarvis.py user_name [config]
+> python3 programmers_assistant.py user_name [config]
 > if configuration file exists:
 > run jarvis on the current folder in terminal
 > user_name links to database of regular commands and preferences
