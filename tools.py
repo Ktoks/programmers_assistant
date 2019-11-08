@@ -7,12 +7,29 @@ from tkinter import messagebox
 class InvalidCommand(Exception):
     pass
 
-def fix_word(target,options,accuracy):
-    root = tk.Tk()
-    root.withdraw()
+#def choose_message():
+#    aaa
+
+
+#tkMessagebox.showinfo ((parent = new_widow,title = asa message = aij)
+
+def message(parent,subject,text,flag):
+    newbox = tk.tix.ButtonBox()Z
+    if flag == 0:
+        #This is a normal message.
+        messagebox.showinfo(parent,subject,text)
+        parent.focus_force()
+    elif flag == 1:
+        #This is a warning message.
+        messagebox.showwarning(subject,text).focus_force()
+    elif flag == 2:
+        #This is a Yes/No message
+        return messagebox.askyesno(subject,text).focus_force()
+    
+def fix_word(parent,target,options,accuracy):
     #this function receives a target string and a list of optional strings it
     #   might match. It returns the highest accuracy option if it is within
-    #   _accuracy_ of target. Otherwise, returns False for not recognized.
+    #   _accuracy_ of target. Otherwise, raises an exception for InvalidCommand
     tests = []
     for i in range(len(options)):
         x = fix_word_R(target,options[i])
@@ -29,22 +46,23 @@ def fix_word(target,options,accuracy):
         else:
             break
     if bests > 2 and tests[-0][1] > accuracy:
-        messagebox.showwarning("Error: Vague","Command failed: '"+target+
+        message(parent,"Error: Vague","Command failed: '"+target+
                               "'too vague, "+str(bests) +
-                              " possible interpretations.")
+                              " possible interpretations.",1)
         raise InvalidCommand
     if bests > 1 and tests[0][1] > accuracy:
+        #This isn't implemented right now
         print("There's more than 1 best option. Idk what to do with this.  Total:",bests)
     elif tests[0][1] > accuracy:
         return options[tests[0][0]]
     elif tests[0][1] > accuracy - FORGIVENESS_ERROR:
-        result = messagebox.askyesno("Suggestion","Did you mean: '"+options[tests[0][0]]+"'?")
+        result = message(parent,"Suggestion","Did you mean: '"+options[tests[0][0]]+"'?")
         if result:
             return options[tests[0][0]]
         else:
             raise InvalidCommand
     else:
-        print("Nothing is close. Try again matey.")
+        raise InvalidCommand
 
 def fix_word_R(target,option):
     #print(target,option)
@@ -112,6 +130,14 @@ o = ["cd", "c", "d", "ls", "l", "s", "home", "start", "quit", "."]
 #o = "text"
 #t = "st"
 #o = "xt"
+<<<<<<< Updated upstream
 print(fix_word(t,o,0.8))
 
 
+=======
+root = tk.Tk()
+root.withdraw()
+window = tk.Toplevel()
+#fix_word(window,t,o,0.8)
+message(window,"waaaaa","aaaaaaa",0)
+>>>>>>> Stashed changes
