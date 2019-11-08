@@ -54,10 +54,10 @@ def match_commands(a1,a2,a3):
     
     #Return string of command to execute
 
-def show_display(a1, a2, a3):
+def show_display(a3):
     #Example: "gnome-terminal -e 'bash -c \"sudo apt-get update; exec bash\"'"
     #a3 = list of strings to execute
-    finish = subprocess.run(a3)
+    finish = subprocess.run(a3, shell=True)
     if finish.returncode != 0:
         #Error has happened :)
         pass
@@ -67,7 +67,7 @@ def show_display(a1, a2, a3):
     #                    """.format(a3)
     #os.system(stringToExecute)
         
-show_display(1,2,"cd Desktop")
+show_display(["ls", "-al"])
 #show_settings()
 
 
