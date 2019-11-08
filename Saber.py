@@ -7,10 +7,10 @@ INTERRUPTED = False
 class SABER:
 
     def __init__(self):
-        mLocationMap = {}   # word:folder
-        mConfig = {}        # setting:action
-        mLocation = {}      # location:directory
-        mLanguage = {}      # language:configuration
+        self.mLocationMap = {}   # word:folder
+        self.mConfig = {}        # setting:action
+        self.mLocation = {}      # location:directory
+        self.mLanguage = {}      # language:configuration
 
 
 #######     HELPER FUNCTIONS FOR LISTEN      ########
@@ -25,7 +25,7 @@ class SABER:
 
 ######      END HELPER FUNCTIONS      ###############
 
-    def findDirectory(self, arg):
+    def findDirectory(self, arg): #########   TESTED----APPROVED   #########
         for key in self.mLocation:
             if arg == key:
                 return self.mLocation[key]
