@@ -113,6 +113,7 @@
 ```python
 # create a matchCommands function that recieves arg[3], runs commands, and returns the display:
     # apply configurations from args[0-2]
+    # converting the user's input into a string
     # run commands from arg[3]
     # run display, wait for exit command or x pressed on window
 ```
