@@ -1,4 +1,4 @@
-import snowboydecoder
+import snowboy.examples.Python3.snowboydecoder
 import sys
 import signal
 import showDisplayAndMatchCommands
