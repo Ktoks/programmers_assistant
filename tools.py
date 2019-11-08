@@ -1,6 +1,8 @@
 FORGIVENESS_ERROR = 0.1
-from tkinter import messagebox
+# from tk import messagebox
 import tkinter as tk
+
+from tkinter import messagebox
 
 class InvalidCommand(Exception):
     pass
@@ -101,14 +103,15 @@ def sort_col(data,col):
             R += 1
     return new
 
-t = "arrow"
+t = "hoem"
 #o = ["crow","blow","asglaglvsk","agrw","arw"]
-o = ["arow","arow","arow"]
+o = ["cd", "c", "d", "ls", "l", "s", "home", "start", "quit", "."]
 #t ="i am going home"
 #o = "gone home"
 #t = "test"
 #o = "text"
 #t = "st"
 #o = "xt"
-fix_word(t,o,0.8)
+print(fix_word(t,o,0.8))
+
 

@@ -75,7 +75,9 @@ def show_display(a3):
     #                    """.format(a3)
     #os.system(stringToExecute)
         
+# show_display(["ls", "-al"])
 show_display(["ls", "-al"])
+
 #show_settings()
 
 
