@@ -8,11 +8,11 @@ def analyzeSentence(sentence):
 		print("Must include python in string")
 		return
 	directoryList = args[0].split()
-	actualDirectory = directoryList[1:].
+	actualDirectory = directoryList[1:].join(" ")
 	argumentDictionary = {}
-	argumentDictionary["directory"] = findDirectory(args[0][1:])
+	argumentDictionary["directory"] = findDirectory(actualDirectory)
 	#argumentDictionary["language"] = findLanguage(arg[2])
-	argumentDictionary["command"] = matchCommands(args[3:])
+	argumentDictionary["command"] = matchCommands(args[1])
 	return argumentDictionary
 
 def voiceRecognition():
