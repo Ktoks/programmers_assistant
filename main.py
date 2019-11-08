@@ -34,4 +34,4 @@ def main():
             if keyword == 'quit':
                 running = False
 
-m
+main()
