@@ -72,25 +72,3 @@ def voiceRecognition():
 	saber = SABER()
 	saber.listen()
 
-def main(argv):
-
-    try:
-        opts, args = getopt.getopt(argv, opts)
-    except getopt.GetoptError:
-        print ("error in getopts")
-        sys.exit(2)
-        
-
-    saber = SABER()
-    keyWord = input('Listening... Press Ctrl+C to exit')
-    if keyword == 'start':
-        running = True
-        while running == True:
-            sentence = voiceRecognition()
-            display = sentence.analyzeSentence()
-            display.showDisplay()
-            keyWord = input('Listening... Press Ctrl+C to exit')
-            if keyword == 'quit':
-                running = False
-
-main()
