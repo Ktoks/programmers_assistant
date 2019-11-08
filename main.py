@@ -34,6 +34,8 @@ def main():
             sentence = voiceRecognition(keyword)
             analyzeSentence(sentence)
             location = findDirectory[arg1]
+            if location == "Directory not found.":
+                keyWord = input('Listening... Press Ctrl+C to exit')
             display.showDisplay()
             keyWord = input('Listening... Press Ctrl+C to exit')
             if keyword == 'quit':
