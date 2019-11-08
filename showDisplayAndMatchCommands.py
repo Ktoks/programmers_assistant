@@ -1,6 +1,5 @@
 #class :D
-import pygame
-pygame.display.init()
+from tkinter import messagebox
 import os
 import subprocess
 #from settings import *
@@ -57,10 +56,19 @@ def match_commands(a1,a2,a3):
 def show_display(a3):
     #Example: "gnome-terminal -e 'bash -c \"sudo apt-get update; exec bash\"'"
     #a3 = list of strings to execute
-    finish = subprocess.run(a3, shell=True)
-    if finish.returncode != 0:
-        #Error has happened :)
-        pass
+    output = subprocess.run(a3, shell=True)
+    if output.returncode != 0:
+        brief = "Command has failed with output:"
+        title = "Error"
+        brief += "\n" + output.stdout
+        messagebox.showwarning(title,brief)
+    else:
+        brief = "Command has succeeded with output:"
+        title = "Success"
+        brief += "\n" + output.stdout
+        messagebox.showinfo(title,brief)
+    
+    
     #a3 = string? = {0}
     #stringToExecute = """
     #    "gnome-terminal -e 'bash -c \"{0}; exec bash\"'"
