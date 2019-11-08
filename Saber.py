@@ -23,6 +23,12 @@ class SABER:
 
 ######      END HELPER FUNCTIONS      ###############
 
+    def findDirectory(arg):
+        for key in mLocationMap:
+            if arg == key:
+                return mLocationMap[key]
+        return "Directory not found."
+
     def listen(self):
 	if len(sys.argv) == 1:
     		print("Error: need to specify model name")

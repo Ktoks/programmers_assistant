@@ -25,8 +25,10 @@ def main():
     if keyword == 'start':
         running = True
         while running == True:
-            sentence = voiceRecognition()
-            display = sentence.analyzeSentence()
+            keyWord = input('Listening... Press Ctrl+C to exit')
+            sentence = voiceRecognition(keyword)
+            analyzeSentence(sentence)
+            location = findDirectory[arg1]
             display.showDisplay()
             keyWord = input('Listening... Press Ctrl+C to exit')
             if keyword == 'quit':
