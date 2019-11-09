@@ -5,9 +5,6 @@ class GUI:
     def __init__(self):
         self.mWindow = tkinter.Tk()
         self.mFrame = Frame(self.mWindow, width=300, height=65)
-
-# yesBtn = tkinter.Button(top_frame, text = "YES", fg = "green").pack()
-# tkinter.Label(window, text = "Welcome to your SABER command line! Say one of these commands to see something cool. Waiting for commands...", fg = "white", bg = "black").pack(fill = "x")
         
     def ErrorWindow(self,message):
         self.mWindow.title("ERROR")
@@ -15,7 +12,7 @@ class GUI:
         y = self.mWindow.winfo_screenheight()
         self.mWindow.geometry("300x165+{0}+{1}".format(int(x/2 - 150),int(y/2 - 100)))
         tkinter.Label(self.mWindow, text = message, fg = "black", bg = "white").pack(fill = "x", pady = 20, ipady = 10)
-        tkinter.Button(self.mWindow, text = "Ok", bg = "blue" , command = self.mWindow.quit).pack(ipadx = 20)
+        tkinter.Button(self.mWindow, text = "Ok", bg = "black" , fg = "white", command = self.mWindow.quit).pack(ipadx = 20)
         def end(aaa):
             #self.mWindow.destory()
             self.mWindow.quit()
@@ -34,7 +31,7 @@ class GUI:
         y = self.mWindow.winfo_screenheight()
         self.mWindow.geometry("300x165+{0}+{1}".format(int(x/2 - 150),int(y/2 - 100)))
         tkinter.Label(self.mWindow, text = message, fg = "black", bg = "white").pack(fill = "x", pady = 20, ipady = 10)
-        tkinter.Button(self.mWindow, text = "Ok", bg = "blue" , command = self.mWindow.quit).pack(ipadx = 20)
+        tkinter.Button(self.mWindow, text = "Ok", bg = "black" , fg="white", command = self.mWindow.quit).pack(ipadx = 20)
         def end(aaa):
             #self.mWindow.destory()
             self.mWindow.quit()
@@ -59,7 +56,7 @@ class GUI:
             self.mWindow.quit()
         tkinter.Label(self.mWindow, text = message, fg = "black", bg = "white").pack(fill = "x", pady = 20, ipady = 10)
         tkinter.Button(self.mWindow, text = "Yes", bg = "green" , command = endYes).pack(ipadx = 20, padx = 50, side = LEFT)
-        tkinter.Button(self.mWindow, text = "No", bg = "green" , command = endNo).pack(ipadx = 20, padx = 20, side = LEFT)
+        tkinter.Button(self.mWindow, text = "No", bg = "salmon3" , command = endNo).pack(ipadx = 20, padx = 20, side = LEFT)
         self.mFrame.pack()
 
         self.mWindow.mainloop()
@@ -67,6 +64,8 @@ class GUI:
 
 def main():
     new = GUI()
-    new.YesNo("You done effed up?")
+    # new.YesNo("Output here.")
+    # new.StringMessage("Output here.")
+    new.ErrorWindow("Error")
 
-#main()
+main()
