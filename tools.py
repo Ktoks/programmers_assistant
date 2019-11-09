@@ -122,6 +122,7 @@ def sort_col(data,col):
     return new
 
 def analyzeSentence(sentence):
+    print("Sentence received:",sentence)
     try:
         #sentence = "directory language command"
         args = sentence.split(' python ')
