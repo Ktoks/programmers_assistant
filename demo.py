@@ -51,7 +51,6 @@ def doStuff():
             print("I didnt hear that, try again!")
             continue
         
-        print(possibleQueries)
         if possibleQueries == []:
             print("Sorry, I didnt catch that, try again ........")
             continue
@@ -63,10 +62,10 @@ def doStuff():
             sentence = item['transcript'].split()
             for word in sentence:
                 word = word.lower()
-            print(sentence[0])
             if sentence[0].lower() == 'saber' or sentence[0].lower() == 'sabre' or sentence[len(sentence)-1].lower() == 'quit':
                 query = item['transcript']
 
+        print(query)
         if query=='':
             print('Sorry, we werent able to translate that sentence....')
         else:
@@ -79,8 +78,6 @@ def doStuff():
                 print("Goodbye!")
                 pixels.off()
                 break
-            if l[0] != 'saber':
-                print("DID not contain saber as the first word")
         pixels.off()
         time.sleep(2)
 
