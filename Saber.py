@@ -2,6 +2,11 @@ from snowboy.examples.Python3 import snowboydecoder
 import sys
 import signal
 import showDisplayAndMatchCommands
+from os import walk
+import tools
+
+BASE_DIRECTORY = "C:\\Users\\aeque\\Desktop\\programmers_assistant\\Testdir"
+AUTOCOMPLETE_ACCURACY = 0.8
 
 INTERRUPTED = False
 class SABER:
@@ -77,11 +82,44 @@ class SABER:
         saber.listen()
 
     def analyzeSentence(self, sentence):
-        args = sentence.split('python')
+        #sentence = "directory language command"
+        args = sentence.split(' python ')
         if len(args) == 1:
             print("Must include python in string")
             return
-        directoryList = args[0].split()
+        #args = ["directory","command"]
+        
+        directoryList = args[0].split('slash')
+        if directoryList[0] == '':
+            directoryList[0] = '~'
+        #directoryList = ['one','two','three']
+        #or directoryList = ['~','one','two','three']
+
+        #Theoretical stuff:       
+        start = 0
+        if directoryList[0] == "~":
+            workingDir = "~"
+            start = 1
+        else:
+            workingDir = BASE_DIRECTORY
+        for i in range(start,len(directoryList)):
+            working = directoryList[i]
+            for (dirpath, dirnames, filenames) in walk(workingDir):
+                break #Best for loop 2019
+            print("Working:",working)
+            print("Working Directory:",workingDir)
+            print("Options:",dirnames)
+            new = tools.fix_word(working,dirnames,AUTOCOMPLETE_ACCURACY)
+            print("ValidatedDir:",new)
+            workingDir += new + "\\"
+        finalDirectory = workignDir
+
+        ##DEBUG!!
+        return finalDirectory
+        ##DEBUG!!
+            
+        ####
+            
         actualDirectory = directoryList[1:].join(" ")
         argumentDictionary = {}
         argumentDictionary["directory"] = findDirectory(actualDirectory)

@@ -1,8 +1,8 @@
 FORGIVENESS_ERROR = 0.1
 # from tk import messagebox
-import tkinter as tk
-
-from tkinter import messagebox
+#import tkinter as tk
+#from tkinter import messagebox
+import gui
 
 class InvalidCommand(Exception):
     pass
@@ -13,8 +13,8 @@ class InvalidCommand(Exception):
 
 #tkMessagebox.showinfo ((parent = new_widow,title = asa message = aij)
 
-def message(parent,subject,text,flag):
-    newbox = tk.tix.ButtonBox()Z
+def message(subject,text,flag):
+    newbox = tk.tix.ButtonBox()
     if flag == 0:
         #This is a normal message.
         messagebox.showinfo(parent,subject,text)
@@ -26,7 +26,7 @@ def message(parent,subject,text,flag):
         #This is a Yes/No message
         return messagebox.askyesno(subject,text).focus_force()
     
-def fix_word(parent,target,options,accuracy):
+def fix_word(target,options,accuracy):
     #this function receives a target string and a list of optional strings it
     #   might match. It returns the highest accuracy option if it is within
     #   _accuracy_ of target. Otherwise, raises an exception for InvalidCommand
@@ -46,9 +46,10 @@ def fix_word(parent,target,options,accuracy):
         else:
             break
     if bests > 2 and tests[-0][1] > accuracy:
-        message(parent,"Error: Vague","Command failed: '"+target+
+        message = gui.GUI()
+        message.ErrorWindow("Command failed: '"+target+
                               "'too vague, "+str(bests) +
-                              " possible interpretations.",1)
+                              " possible interpretations.")
         raise InvalidCommand
     if bests > 1 and tests[0][1] > accuracy:
         #This isn't implemented right now
@@ -56,7 +57,8 @@ def fix_word(parent,target,options,accuracy):
     elif tests[0][1] > accuracy:
         return options[tests[0][0]]
     elif tests[0][1] > accuracy - FORGIVENESS_ERROR:
-        result = message(parent,"Suggestion","Did you mean: '"+options[tests[0][0]]+"'?")
+        message = gui.GUI()
+        result = message.YesNo("Did you mean: '"+options[tests[0][0]]+"'?")
         if result:
             return options[tests[0][0]]
         else:
@@ -121,23 +123,23 @@ def sort_col(data,col):
             R += 1
     return new
 
-t = "holy cow!"
+#t = "holy cow!"
 #o = ["crow","blow","asglaglvsk","agrw","arw"]
-o = ["cd", "c", "d", "ls", "l", "s", "home", "start", "quit", "."]
-#t ="i am going home"
-#o = "gone home"
+#o = ["cd", "c", "d", "ls", "l", "s", "home", "start", "quit", "."]
+t ="med"
+o = ["big","lil","med"]
 #t = "test"
 #o = "text"
 #t = "st"
 #o = "xt"
-<<<<<<< Updated upstream
-print(fix_word(t,o,0.8))
+#<<<<<<< Updated upstream
+    print(fix_word(t,o,0.8))
 
 
-=======
-root = tk.Tk()
-root.withdraw()
-window = tk.Toplevel()
+#=======
+#root = tk.Tk()
+#root.withdraw()
+#window = tk.Toplevel()
 #fix_word(window,t,o,0.8)
-message(window,"waaaaa","aaaaaaa",0)
->>>>>>> Stashed changes
+#message(window,"waaaaa","aaaaaaa",0)
+#>>>>>>> Stashed changes

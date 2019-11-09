@@ -50,18 +50,23 @@ class GUI:
         x = self.mWindow.winfo_screenwidth()
         y = self.mWindow.winfo_screenheight()
         self.mWindow.geometry("300x165+{0}+{1}".format(int(x/2 - 150),int(y/2 - 100)))
+        self.retval = False
+        def endYes():
+            self.retval = True
+            self.mWindow.quit()
+        def endNo():
+            self.retval = False
+            self.mWindow.quit()
         tkinter.Label(self.mWindow, text = message, fg = "black", bg = "white").pack(fill = "x", pady = 20, ipady = 10)
-        tkinter.Button(self.mWindow, text = "Yes", bg = "green" , command = self.mWindow.quit).pack(ipadx = 20, padx = 50, side = LEFT)
-        tkinter.Button(self.mWindow, text = "No", bg = "green" , command = self.mWindow.quit).pack(ipadx = 20, padx = 20, side = LEFT)
+        tkinter.Button(self.mWindow, text = "Yes", bg = "green" , command = endYes).pack(ipadx = 20, padx = 50, side = LEFT)
+        tkinter.Button(self.mWindow, text = "No", bg = "green" , command = endNo).pack(ipadx = 20, padx = 20, side = LEFT)
         self.mFrame.pack()
-        
-        
-        self.mWindow.mainloop()
 
-            
+        self.mWindow.mainloop()
+        return self.retval            
 
 def main():
     new = GUI()
     new.YesNo("You done effed up?")
 
-main()
+#main()
