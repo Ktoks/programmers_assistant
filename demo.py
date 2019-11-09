@@ -1,15 +1,11 @@
-#import snowboydecoder
 import os
 import sys
 import signal
 import time
-#import Saber
 from pixels import Pixels, pixels
 from google_home_led_pattern import GoogleHomeLedPattern
 import speech_recognition as sr
 import tools
-#from pocketsphinx import LiveSpeech,get_model_path
-
 
 
 interrupted = False
@@ -25,7 +21,6 @@ def interrupt_callback():
     return interrupted
 
 
-#model = sys.argv[1]
 
 # capture SIGINT signal, e.g., Ctrl+C
 signal.signal(signal.SIGINT, signal_handler)
@@ -33,7 +28,6 @@ signal.signal(signal.SIGINT, signal_handler)
 
 print('Listening... Press Ctrl+C to exit')
 
-# main loop
 def doStuff():
     r=sr.Recognizer()
     #mic=sr.Microphone(sample_rate=16000,chunk_size=512)
@@ -47,7 +41,7 @@ def doStuff():
         pixels.think()
         try:
             possibleQueries = r.recognize_google(audio,show_all=True)
-        except UnknwonValueError:
+        except sr.UnknownValueError:
             print("I didnt hear that, try again!")
             continue
         
