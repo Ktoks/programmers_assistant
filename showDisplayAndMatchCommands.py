@@ -5,6 +5,10 @@ import subprocess
 #from settings import *
 from commandDatabase import *
 
+#from tools import InvalidCommand
+class InvalidCommand(Exception):
+    pass
+
 SETTINGS_WINDOW_HEIGHT = 400
 SETTINGS_WINDOW_WIDTH = 500
 SETTINGS_WINDOW_TOPIC = "Let's get this digital bread gamers"
@@ -53,17 +57,19 @@ def match_commands(a1,a2,a3):
     baseCommand = True
     breakPast = False
     for item in a3:
+        if len(item) < 1:
+            continue
         if breakPast:
             breakPast = False
             if item == "pie":
                 action += "py"
-                
-            continue
-        if len(item) < 1:
             continue
         if baseCommand:
             baseCommand = False
-            action = pythonCommandLibrary[item.strip()]
+            try:
+                action = pythonCommandLibrary[item.strip()]
+            except:
+                return False
             continue
         if item.strip() == "and":
             #Another command is coming in.
@@ -74,6 +80,9 @@ def match_commands(a1,a2,a3):
         if item.strip() == "dot":
             action += "."
             breakPast = True
+            continue
+        if item.strip() == "back":
+            action += " .."
             continue
         action += " " + item.strip()
     if len(action) > 0:

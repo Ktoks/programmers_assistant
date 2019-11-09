@@ -12,25 +12,6 @@ AUTOCOMPLETE_ACCURACY = 0.8
 
 class InvalidCommand(Exception):
     pass
-
-#def choose_message():
-#    aaa
-
-
-#tkMessagebox.showinfo ((parent = new_widow,title = asa message = aij)
-
-def message(subject,text,flag):
-    newbox = tk.tix.ButtonBox()
-    if flag == 0:
-        #This is a normal message.
-        messagebox.showinfo(parent,subject,text)
-        parent.focus_force()
-    elif flag == 1:
-        #This is a warning message.
-        messagebox.showwarning(subject,text).focus_force()
-    elif flag == 2:
-        #This is a Yes/No message
-        return messagebox.askyesno(subject,text).focus_force()
     
 def fix_word(target,options,accuracy):
     #print(">"+target+"<",options)
@@ -133,49 +114,58 @@ def sort_col(data,col):
     return new
 
 def analyzeSentence(sentence):
-    #sentence = "directory language command"
-    args = sentence.split(' python ')
-    if len(args) == 1:
-        print("Must include python in string")
-        return
-    #args = ["directory","command"]
-    
-    directoryList = args[0].split('slash')
-    if directoryList[0] == '':
-        directoryList[0] = '~'
-    #directoryList = ['one','two','three']
-    #or directoryList = ['~','one','two','three']
+    try:
+        #sentence = "directory language command"
+        args = sentence.split(' python ')
+        if len(args) == 1:
+            print("Must include python in string")
+            return
+        #args = ["directory","command"]
+        
+        directoryList = args[0].split('slash')
+        if directoryList[0] == '':
+            directoryList[0] = '~'
+        #directoryList = ['one','two','three']
+        #or directoryList = ['~','one','two','three']
 
-    #Theoretical stuff:       
-    start = 0
-    if directoryList[0] == "~":
-        workingDir = "~"
-        start = 1
-    else:
-        workingDir = BASE_DIRECTORY
-    for i in range(start,len(directoryList)):
-        working = directoryList[i].lower().strip()
-        if len(working) > 0:
-            for (dirpath, dirnames, filenames) in walk(workingDir):
-                break #Best for loop 2019
-            #print("Working:",working)
-            #print("Working Directory:",workingDir)
-            #print("Options:",dirnames)
-            new = fix_word(working,dirnames,AUTOCOMPLETE_ACCURACY)
-            #print("ValidatedDir:",new)
-            workingDir += new + "\\"
-    finalDirectory = workingDir
+        #Theoretical stuff:       
+        start = 0
+        if directoryList[0] == "~":
+            workingDir = "~"
+            start = 1
+        else:
+            workingDir = BASE_DIRECTORY
+        for i in range(start,len(directoryList)):
+            working = directoryList[i].lower().strip()
+            if len(working) > 0:
+                Dirs = []
+                for [dirpath, dirnames, filenames] in walk(workingDir):
+                    Dirs.extend(dirnames)
+                    break #Best for loop 2019
+                #print("Working:",working)
+                #print("Working Directory:",workingDir)
+                #print("Options:",dirnames)
+                new = fix_word(working,Dirs,AUTOCOMPLETE_ACCURACY)
+                #print("ValidatedDir:",new)
+                workingDir += new + "\\"
+        finalDirectory = workingDir
 
-    ##DEBUG!!
-    #print(">"+args[1]+"<")
-    #return finalDirectory
-    ##DEBUG!!
+        ##DEBUG!!
+        #print(">"+args[1]+"<")
+        #return finalDirectory
+        ##DEBUG!!
 
-    actions = args[1].split()
+        actions = args[1].split()
 
-    commands = showDisplayAndMatchCommands.match_commands(finalDirectory,"python",actions)
-    #showDisplayAndMatchCommands.show_display(commands)
-    showDisplayAndMatchCommands.dummy_display(commands)
+        commands = showDisplayAndMatchCommands.match_commands(finalDirectory,"python",actions)
+        if not commands:
+            raise InvalidCommand
+        #showDisplayAndMatchCommands.show_display(commands)
+        showDisplayAndMatchCommands.dummy_display(commands)
+    except InvalidCommand:
+        message = gui.GUI()
+        message.ErrorWindow("Invalid command.")
+        
 
 #t = "holy cow!"
 #o = ["crow","blow","asglaglvsk","agrw","arw"]
@@ -199,3 +189,7 @@ def analyzeSentence(sentence):
 #>>>>>>> Stashed changes
 
 analyzeSentence("dog slash whie slash extralong slash scruffy python run sabre dot pie")
+print("------")
+analyzeSentence("dog slash whie slash extralong python run sabre dot pie and relocate scruffy and cd back and make clean")
+print("------")
+analyzeSentence("dog python kappa")
