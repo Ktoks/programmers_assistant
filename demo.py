@@ -36,8 +36,8 @@ print('Listening... Press Ctrl+C to exit')
 # main loop
 def doStuff():
     r=sr.Recognizer()
-    mic=sr.Microphone(sample_rate=32000,chunk_size=512)
-
+    #mic=sr.Microphone(sample_rate=16000,chunk_size=512)
+    mic = sr.Microphone()
     pixels.pattern = GoogleHomeLedPattern(show=pixels.show)
     while True:
         pixels.wakeup()

@@ -104,8 +104,22 @@ def match_commands(a1,a2,a3):
         action += " " + item.strip()
     if len(a3) > 1:
         if a3[-2].lower().strip() == "run":
-            options = next(walk(a1))[2]
-            action = tools.fix_word(a3[-1]+".py", options,AUTOCOMPLETE_ACCURACY)
+            options = []
+            #gen = os.scandir(a1)
+            direct = a1
+            if direct == '':
+                direct = '~'
+            for (a,b,options) in walk(direct):
+                action = tools.fix_word(a3[-1]+".py", options,AUTOCOMPLETE_ACCURACY)
+                break
+            #try:
+            #    (a,b,options) = next(walk(a1))
+            #    options = next(walk(a1))[2]
+            #    action = tools.fix_word(a3[-1]+".py", options,AUTOCOMPLETE_ACCURACY)
+            #except:
+            #    action = tools.fix_word(a3[-1]+".py", options,AUTOCOMPLETE_ACCURACY)
+            #finally:
+            #    action = tools.fix_word(a3[-1]+".py", options,AUTOCOMPLETE_ACCURACY)
     if len(action) > 0:
         commands.append(action)
     
