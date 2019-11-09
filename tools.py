@@ -3,6 +3,12 @@ FORGIVENESS_ERROR = 0.1
 #import tkinter as tk
 #from tkinter import messagebox
 import gui
+from os import walk
+import showDisplayAndMatchCommands
+
+BASE_DIRECTORY = "C:\\Users\\aeque\\Desktop\\programmers_assistant\\Testdir\\"
+FORGIVENESS_ERROR = 0.1
+AUTOCOMPLETE_ACCURACY = 0.8
 
 class InvalidCommand(Exception):
     pass
@@ -27,6 +33,7 @@ def message(subject,text,flag):
         return messagebox.askyesno(subject,text).focus_force()
     
 def fix_word(target,options,accuracy):
+    #print(">"+target+"<",options)
     #this function receives a target string and a list of optional strings it
     #   might match. It returns the highest accuracy option if it is within
     #   _accuracy_ of target. Otherwise, raises an exception for InvalidCommand
@@ -55,9 +62,11 @@ def fix_word(target,options,accuracy):
         #This isn't implemented right now
         print("There's more than 1 best option. Idk what to do with this.  Total:",bests)
     elif tests[0][1] > accuracy:
+        #print(tests)
         return options[tests[0][0]]
     elif tests[0][1] > accuracy - FORGIVENESS_ERROR:
         message = gui.GUI()
+        #print(tests)
         result = message.YesNo("Did you mean: '"+options[tests[0][0]]+"'?")
         if result:
             return options[tests[0][0]]
@@ -123,17 +132,62 @@ def sort_col(data,col):
             R += 1
     return new
 
+def analyzeSentence(sentence):
+    #sentence = "directory language command"
+    args = sentence.split(' python ')
+    if len(args) == 1:
+        print("Must include python in string")
+        return
+    #args = ["directory","command"]
+    
+    directoryList = args[0].split('slash')
+    if directoryList[0] == '':
+        directoryList[0] = '~'
+    #directoryList = ['one','two','three']
+    #or directoryList = ['~','one','two','three']
+
+    #Theoretical stuff:       
+    start = 0
+    if directoryList[0] == "~":
+        workingDir = "~"
+        start = 1
+    else:
+        workingDir = BASE_DIRECTORY
+    for i in range(start,len(directoryList)):
+        working = directoryList[i].lower().strip()
+        if len(working) > 0:
+            for (dirpath, dirnames, filenames) in walk(workingDir):
+                break #Best for loop 2019
+            #print("Working:",working)
+            #print("Working Directory:",workingDir)
+            #print("Options:",dirnames)
+            new = fix_word(working,dirnames,AUTOCOMPLETE_ACCURACY)
+            #print("ValidatedDir:",new)
+            workingDir += new + "\\"
+    finalDirectory = workingDir
+
+    ##DEBUG!!
+    #print(">"+args[1]+"<")
+    #return finalDirectory
+    ##DEBUG!!
+
+    actions = args[1].split()
+
+    commands = showDisplayAndMatchCommands.match_commands(finalDirectory,"python",actions)
+    #showDisplayAndMatchCommands.show_display(commands)
+    showDisplayAndMatchCommands.dummy_display(commands)
+
 #t = "holy cow!"
 #o = ["crow","blow","asglaglvsk","agrw","arw"]
 #o = ["cd", "c", "d", "ls", "l", "s", "home", "start", "quit", "."]
-t ="med"
-o = ["big","lil","med"]
+#t ="med"
+#o = ["big","lil","med"]
 #t = "test"
 #o = "text"
 #t = "st"
 #o = "xt"
 #<<<<<<< Updated upstream
-    print(fix_word(t,o,0.8))
+#print(fix_word(t,o,0.8))
 
 
 #=======
@@ -143,3 +197,5 @@ o = ["big","lil","med"]
 #fix_word(window,t,o,0.8)
 #message(window,"waaaaa","aaaaaaa",0)
 #>>>>>>> Stashed changes
+
+analyzeSentence("dog slash whie slash extralong slash scruffy python run sabre dot pie")

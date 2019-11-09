@@ -40,15 +40,45 @@ SETTINGS_WINDOW_FPS = 15
 
 
 def match_commands(a1,a2,a3):
+    #print(a1,a2)
+    if type(a3) != list:
+        a3 = [a3]
     #a1 = directory
     #a2 = language
     #a3 = list of words spoken by the user
 
-    commands = ["cd "+pythonCommandLibrary]
+    commands = ["cd "+a1]
+
+    action = ""
+    baseCommand = True
+    breakPast = False
     for item in a3:
-        commands.append(pythonCommandLibrary(item))
-    
-    
+        if breakPast:
+            breakPast = False
+            if item == "pie":
+                action += "py"
+                
+            continue
+        if len(item) < 1:
+            continue
+        if baseCommand:
+            baseCommand = False
+            action = pythonCommandLibrary[item.strip()]
+            continue
+        if item.strip() == "and":
+            #Another command is coming in.
+            commands.append(action)
+            baseCommand = True
+            action = ""
+            continue
+        if item.strip() == "dot":
+            action += "."
+            breakPast = True
+            continue
+        action += " " + item.strip()
+    if len(action) > 0:
+        commands.append(action)
+                
     #if a2.lower() == "python":
     #    ###
     #    pass
@@ -61,6 +91,10 @@ def match_commands(a1,a2,a3):
 
     return commands
     #Return string of command to execute
+
+def dummy_display(a3):
+    for item in a3:
+        print(item)
 
 def show_display(a3):
     #Example: "gnome-terminal -e 'bash -c \"sudo apt-get update; exec bash\"'"
@@ -86,7 +120,7 @@ def show_display(a3):
     #os.system(stringToExecute)
         
 # show_display(["ls", "-al"])
-show_display(["ls", "-al"])
+#show_display(["ls", "-al"])
 
 #show_settings()
 
