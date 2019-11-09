@@ -136,5 +136,13 @@ pythonCommandLibrary = {
     "seedy":"cd",
     "savor":"saber",
     "savior":"saber",
-    "tests":"test"
+    "tests":"test",
+    "rum":"run",
+    "sabor":"saber",
+    "sober":"saber",
+    "kroger":"saber",
+    "older":"saber",
+    "palmer":"saber",
+    "silver":"saber",
+    "masturbater":"saber"
     }
