@@ -11,6 +11,7 @@ pythonCommandLibrary = {
     "ls":"ls",
     "touch":"touch",
     "man":"man",
+    "help":"help",
     "--help":"--help",
     "cp":"cp",
     "mv":"mv",

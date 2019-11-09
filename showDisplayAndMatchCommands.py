@@ -1,7 +1,6 @@
 #class :D
 from tkinter import messagebox
 import os
-from os import walk
 import subprocess
 #from settings import *
 from commandDatabase import *
@@ -18,8 +17,6 @@ SETTINGS_WINDOW_FPS = 15
 
 AUTOCOMPLETE_ACCURACY = 0.8
 
-#    def voice_recognition
-
 ##def show_settings():
 ##    screen = pygame.display.set_mode((SETTINGS_WINDOW_WIDTH,SETTINGS_WINDOW_HEIGHT))
 ##    pygame.display.set_caption(SETTINGS_WINDOW_TOPIC)
@@ -34,16 +31,6 @@ AUTOCOMPLETE_ACCURACY = 0.8
 ##        #surface.blit(screen,(0,0))
 ##        screen.fill((255,255,255))
 ##        pygame.display.update()
-
-#commands:
-#    python3 _file_
-#    cd somewhere
-#    run _command_ in directory:
-#        cd into directory
-#        run command
-#        go back to original directory
-        
-#python3 file running
 
 
 
@@ -74,18 +61,15 @@ def match_commands(a1,a2,a3):
             breakPast = True
             action += item.strip()
             continue
-        if breakPast:
-            breakPast = False
-            if item == "pie":
-                action += "py"
-            else:
-                action += item.strip()
-            continue
         if baseCommand:
+
             baseCommand = False
             try:
-                action = pythonCommandLibrary[item.strip()]
+                print('base command stripped',item.strip())
+                action = pythonCommandLibrary[item.strip().lower()]
+                print('mapped action',action)
             except:
+                print("error py command library")
                 return False
             continue
         if item.strip() == "and":
@@ -105,35 +89,21 @@ def match_commands(a1,a2,a3):
     if len(a3) > 1:
         if a3[-2].lower().strip() == "run":
             options = []
-            #gen = os.scandir(a1)
-            direct = a1
+            direct = a1[:]
             if direct == '':
-                direct = '~'
-            for (a,b,options) in walk(direct):
-                action = tools.fix_word(a3[-1]+".py", options,AUTOCOMPLETE_ACCURACY)
-                break
+                direct = '/home/pi'
+            
             #try:
-            #    (a,b,options) = next(walk(a1))
-            #    options = next(walk(a1))[2]
-            #    action = tools.fix_word(a3[-1]+".py", options,AUTOCOMPLETE_ACCURACY)
-            #except:
-            #    action = tools.fix_word(a3[-1]+".py", options,AUTOCOMPLETE_ACCURACY)
-            #finally:
-            #    action = tools.fix_word(a3[-1]+".py", options,AUTOCOMPLETE_ACCURACY)
-    if len(action) > 0:
-        commands.append(action)
-    
-                
-    #if a2.lower() == "python":
-    #    ###
-    #    pass
-    #elif a2.lower() == "c++" or a2.lower() == "cpp":
-    #    ###
-    #    pass
-    #elif a2.lower() == "java":
-    #    ###
-    #    pass
+            #print("AAAAAAAAAAAAAAAAAA",next(walk(direct)))
+            things = []
+            for item in os.listdir(direct):
+                if "." != item[0] and "." in item:
+                    things.append(item)
 
+            action = tools.fix_word(a3[-1]+".py", things,AUTOCOMPLETE_ACCURACY)
+                
+            if len(action) > 0:
+                commands.append(action)
     return commands
     #Return string of command to execute
 
@@ -142,43 +112,29 @@ def dummy_display(a3):
         print(item)
 
 def show_display(a3):
-    #Example: "gnome-terminal -e 'bash -c \"sudo apt-get update; exec bash\"'"
     #a3 = list of strings to execute
-    
-    output = subprocess.run(a3, shell=True)
-    if output.returncode != 0:
+    response = ""
+    #output = subprocess.run(a3, shell=True,stdout=response)
+    #p = subprocess.check_output(a3)
+    try:
+        #subprocess.call(a3[0],shell=True)
+        p = subprocess.check_output(a3[0] + ";" + a3[1],shell=True)
+    except subprocess.CalledProcessError:
+        print("Invalid commands")
+        #if output.returncode != 0:
         brief = "Command has failed with output:"
         title = "Error"
-        brief += "\n" + output.stdout
-        message = gui.GUI()
-        message.ErrorWindow(brief)
+        #brief += "\n" + p
+        #message = gui.GUI()
+        #message.ErrorWindow(brief)
     else:
         brief = "Command has succeeded with output:"
         title = "Success"
-        brief += "\n" + output.stdout
-        message = gui.GUI()
-        message.MessageWindow(brief)
-    
-    
-    #a3 = string? = {0}
-    #stringToExecute = """
-    #    "gnome-terminal -e 'bash -c \"{0}; exec bash\"'"
-    #                    """.format(a3)
-    #os.system(stringToExecute)
-        
-# show_display(["ls", "-al"])
-#show_display(["ls", "-al"])
-
-#show_settings()
-
-
-#create a showDisplay function that recieves arguments and spawns display in
-        #forefront after completing command(difficult?),
-# or spawns a new linux terminal with config from args[1-3], moving it to the
-        #forefront when the command completes
-    # creates a new display or new terminal for each command sentence the user
-        #inputs
-    # should kill any processes it has spawned in the background, then display
-        #the output?
-    # waits for the exit command or x to be press to close the display window
-    # only shuts itself down when quit command issued
+        print(title)
+        finalOut = []
+        p = p.split(b"\n")
+        for item in p:
+            finalOut.append(item.decode("utf-8"))
+        #brief += "\n" + p
+        #message = gui.GUI()
+        #message.MessageWindow(brief)

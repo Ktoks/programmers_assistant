@@ -6,7 +6,7 @@ import gui
 from os import walk
 import showDisplayAndMatchCommands
 
-BASE_DIRECTORY = "C:\\Users\\aeque\\Desktop\\programmers_assistant\\Testdir\\"
+BASE_DIRECTORY = "/home/pi/codecamp"
 FORGIVENESS_ERROR = 0.1
 AUTOCOMPLETE_ACCURACY = 0.8
 
@@ -133,41 +133,33 @@ def analyzeSentence(sentence):
         
         if args[0].strip() == "here" or args[0].strip() == "hear":
             finalDirectory = "."
-            print("yoo")
+            #print("yoo")
         elif args[0].strip() == "home":
-            print("yoo2")
+            #print("yoo2")
             finalDirectory = ""
         else:
             if "/" in args[0]:
                 directoryList = args[0].split("/")
             else:
                 directoryList = args[0].split('slash')
+           
             if directoryList[0] == '':
-                directoryList[0] = '~'
+                directoryList[0] = '~/'
             #directoryList = ['one','two','three']
             #or directoryList = ['~','one','two','three']
 
             #Theoretical stuff:       
             start = 0
-            if directoryList[0] == "~":
-                workingDir = "~"
+            if directoryList[0] == "~/":
+                workingDir = "~/"
                 start = 1
             else:
                 workingDir = BASE_DIRECTORY
             for i in range(start,len(directoryList)):
                 working = directoryList[i].lower().strip()
                 if len(working) > 0:
-                    #Dirs = []
-                    #for [dirpath, dirnames, filenames] in walk(workingDir):
-                    #    Dirs.extend(dirnames)
-                    #    break #Best for loop 2019
                     Dirs = next(walk(workingDir))[1]
-                    #print("Working:",working)
-                    #print("Working Directory:",workingDir)
-                    #print("DIRS:",Dirs)
-                    #print("Options:",dirnames)
                     new = fix_word(working,Dirs,AUTOCOMPLETE_ACCURACY)
-                    #print("ValidatedDir:",new)
                     workingDir += new + "\\"
             finalDirectory = workingDir
 
@@ -181,8 +173,8 @@ def analyzeSentence(sentence):
         commands = showDisplayAndMatchCommands.match_commands(finalDirectory,"python",actions)
         if not commands:
             raise InvalidCommand
-        #showDisplayAndMatchCommands.show_display(commands)
-        showDisplayAndMatchCommands.dummy_display(commands)
+        showDisplayAndMatchCommands.show_display(commands)
+        #showDisplayAndMatchCommands.dummy_display(commands)
     except InvalidCommand:
         message = gui.GUI()
         message.ErrorWindow("Invalid command.")
@@ -214,4 +206,4 @@ def analyzeSentence(sentence):
 #analyzeSentence("dog slash whie slash extralong python run sabre dot pie and relocate scruffy and cd back and make clean")
 #print("------")
 #analyzeSentence("slash desktop relocate back")
-analyzeSentence("here command run tests")
+#analyzeSentence("here command run t . py")
