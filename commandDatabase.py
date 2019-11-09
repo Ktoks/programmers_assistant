@@ -127,5 +127,12 @@ pythonCommandLibrary = {
     "hear":"here",
     "sabre":"saber",
     "sailor":"saber",
+    "push":"push",
+    "here":"here",
+    "pull":"pull",
+    "stash":"stash",
+    "stache":"stash",
+    "sidi":"cd",
+    "seedy":"cd",
     
     }
