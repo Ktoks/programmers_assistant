@@ -13,11 +13,12 @@ class GUI:
     
     def ErrorWindow(self,message):
         self.mWindow.title("ERROR")
-        set_to_foreground = ctypes.windll.user32.SetForegroundWindow
+        self.mWindow.geometry("300x65+500+350")
+        # set_to_foreground = ctypes.windll.user32.SetForegroundWindow
         # tkinter.messagebox.showinfo("Alert Message", "This is just a alert message!")
         tkinter.Label(self.mWindow, text = message, fg = "white", bg = "black").pack(fill = "x", pady = 20, ipady = 10)
         tkinter.Button(self.mWindow, text = "Ok", command = self.mWindow.quit).pack()
-        set_to_foreground(self.mWindow.winfo_id())
+        # set_to_foreground(self.mWindow.winfo_id())
         self.mFrame.bind("<Return>", self.mWindow.quit)
         self.mFrame.pack()
         
