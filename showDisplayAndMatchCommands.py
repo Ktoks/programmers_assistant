@@ -98,8 +98,9 @@ def match_commands(a1,a2,a3):
             action += " .."
             continue
         action += " " + item.strip()
-    if a3[-2].lower().strip() == "run":
-        action += ".py"
+    if len(a3) > 1:
+        if a3[-2].lower().strip() == "run":
+            action += ".py"
     if len(action) > 0:
         commands.append(action)
     

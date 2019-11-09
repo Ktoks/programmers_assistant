@@ -67,6 +67,7 @@ def doStuff():
             if sentence[0].lower() == 'saber' or sentence[0].lower() == 'sabre' or sentence[len(sentence)-1].lower() == 'quit':
                 query = item['transcript']
 
+        print(query)
         if query=='':
             print('Sorry, we werent able to translate that sentence....')
         else:
@@ -79,7 +80,7 @@ def doStuff():
                 print("Goodbye!")
                 pixels.off()
                 break
-            if l[0] != 'saber':
+            if l[0].lower() != 'saber' or l[0].lower() != 'sabre':
                 print("DID not contain saber as the first word")
         pixels.off()
         time.sleep(2)

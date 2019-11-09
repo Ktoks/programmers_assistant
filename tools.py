@@ -125,13 +125,13 @@ def analyzeSentence(sentence):
     print("Sentence received:",sentence)
     try:
         #sentence = "directory language command"
-        args = sentence.split(' python ')
+        args = sentence.split(' command ')
         if len(args) == 1:
-            print("Must include python in string")
+            print("Must include command in string")
             return
         #args = ["directory","command"]
         
-        if args[0].strip() == "here":
+        if args[0].strip() == "here" or args[0].strip() == "hear":
             finalDirectory = "."
             print("yoo")
         elif args[0].strip() == "home":
