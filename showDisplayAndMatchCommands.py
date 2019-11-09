@@ -3,6 +3,7 @@ from tkinter import messagebox
 import os
 import subprocess
 #from settings import *
+from commandDatabase import *
 
 SETTINGS_WINDOW_HEIGHT = 400
 SETTINGS_WINDOW_WIDTH = 500
@@ -36,26 +37,35 @@ SETTINGS_WINDOW_FPS = 15
         
 #python3 file running
 
+
+
 def match_commands(a1,a2,a3):
     #a1 = directory
     #a2 = language
     #a3 = list of words spoken by the user
+
+    commands = ["cd "+pythonCommandLibrary]
+    for item in a3:
+        commands.append(pythonCommandLibrary(item))
     
-    if a2.lower() == "python":
-        ###
-        pass
-    elif a2.lower() == "c++" or a2.lower() == "cpp":
-        ###
-        pass
-    elif a2.lower() == "java":
-        ###
-        pass
     
+    #if a2.lower() == "python":
+    #    ###
+    #    pass
+    #elif a2.lower() == "c++" or a2.lower() == "cpp":
+    #    ###
+    #    pass
+    #elif a2.lower() == "java":
+    #    ###
+    #    pass
+
+    return commands
     #Return string of command to execute
 
 def show_display(a3):
     #Example: "gnome-terminal -e 'bash -c \"sudo apt-get update; exec bash\"'"
     #a3 = list of strings to execute
+    
     output = subprocess.run(a3, shell=True)
     if output.returncode != 0:
         brief = "Command has failed with output:"
