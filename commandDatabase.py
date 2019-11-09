@@ -146,5 +146,6 @@ pythonCommandLibrary = {
     "silver":"saber",
     "masturbater":"saber",
     "seabird":"saber",
-    "LS":"ls"
+    "LS":"ls",
+    "Echo":"echo"
     }
