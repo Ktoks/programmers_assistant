@@ -134,5 +134,7 @@ pythonCommandLibrary = {
     "stache":"stash",
     "sidi":"cd",
     "seedy":"cd",
-    
+    "savor":"saber",
+    "savior":"saber",
+    "tests":"test"
     }
