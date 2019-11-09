@@ -103,7 +103,7 @@ def sort_col(data,col):
             R += 1
     return new
 
-t = "hoem"
+t = "holy cow!"
 #o = ["crow","blow","asglaglvsk","agrw","arw"]
 o = ["cd", "c", "d", "ls", "l", "s", "home", "start", "quit", "."]
 #t ="i am going home"
