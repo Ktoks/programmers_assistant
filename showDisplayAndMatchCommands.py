@@ -1,9 +1,11 @@
 #class :D
 from tkinter import messagebox
 import os
+from os import walk
 import subprocess
 #from settings import *
 from commandDatabase import *
+import tools
 
 #from tools import InvalidCommand
 class InvalidCommand(Exception):
@@ -13,6 +15,8 @@ SETTINGS_WINDOW_HEIGHT = 400
 SETTINGS_WINDOW_WIDTH = 500
 SETTINGS_WINDOW_TOPIC = "Let's get this digital bread gamers"
 SETTINGS_WINDOW_FPS = 15
+
+AUTOCOMPLETE_ACCURACY = 0.8
 
 #    def voice_recognition
 
@@ -100,7 +104,8 @@ def match_commands(a1,a2,a3):
         action += " " + item.strip()
     if len(a3) > 1:
         if a3[-2].lower().strip() == "run":
-            action += ".py"
+            options = next(walk(a1))[2]
+            action = tools.fix_word(a3[-1]+".py", options,AUTOCOMPLETE_ACCURACY)
     if len(action) > 0:
         commands.append(action)
     
@@ -131,12 +136,14 @@ def show_display(a3):
         brief = "Command has failed with output:"
         title = "Error"
         brief += "\n" + output.stdout
-        messagebox.showwarning(title,brief)
+        message = gui.GUI()
+        message.ErrorWindow(brief)
     else:
         brief = "Command has succeeded with output:"
         title = "Success"
         brief += "\n" + output.stdout
-        messagebox.showinfo(title,brief)
+        message = gui.GUI()
+        message.MessageWindow(brief)
     
     
     #a3 = string? = {0}
