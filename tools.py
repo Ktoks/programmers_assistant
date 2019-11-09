@@ -131,13 +131,15 @@ def analyzeSentence(sentence):
             return
         #args = ["directory","command"]
         
-        if args[0].split() == "here":
+        if args[0].strip() == "here":
             finalDirectory = "."
-        elif args[0].split() == "home":
+            print("yoo")
+        elif args[0].strip() == "home":
+            print("yoo2")
             finalDirectory = ""
         else:
             if "/" in args[0]:
-                directoryList = args[0].split(" / ")
+                directoryList = args[0].split("/")
             else:
                 directoryList = args[0].split('slash')
             if directoryList[0] == '':
@@ -211,4 +213,5 @@ def analyzeSentence(sentence):
 #print("------")
 #analyzeSentence("dog slash whie slash extralong python run sabre dot pie and relocate scruffy and cd back and make clean")
 #print("------")
-analyzeSentence("slash desktop relocate back")
+#analyzeSentence("slash desktop relocate back")
+analyzeSentence("here python run test")
