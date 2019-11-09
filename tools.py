@@ -161,7 +161,7 @@ def analyzeSentence(sentence):
                     #for [dirpath, dirnames, filenames] in walk(workingDir):
                     #    Dirs.extend(dirnames)
                     #    break #Best for loop 2019
-                    Dirs = next(walk('.'))[1]
+                    Dirs = next(walk(workingDir))[1]
                     #print("Working:",working)
                     #print("Working Directory:",workingDir)
                     #print("DIRS:",Dirs)
@@ -214,4 +214,4 @@ def analyzeSentence(sentence):
 #analyzeSentence("dog slash whie slash extralong python run sabre dot pie and relocate scruffy and cd back and make clean")
 #print("------")
 #analyzeSentence("slash desktop relocate back")
-analyzeSentence("here python run test")
+analyzeSentence("here command run tests")
