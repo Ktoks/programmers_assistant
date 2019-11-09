@@ -144,5 +144,7 @@ pythonCommandLibrary = {
     "older":"saber",
     "palmer":"saber",
     "silver":"saber",
-    "masturbater":"saber"
+    "masturbater":"saber",
+    "seabird":"saber",
+    "LS":"ls"
     }
