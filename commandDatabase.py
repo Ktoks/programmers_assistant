@@ -123,5 +123,9 @@ pythonCommandLibrary = {
     "tmp":"tmp",
     "usr":"usr",
     "var":"var",
-    "c++":"c++"
+    "c++":"c++",
+    "hear":"here",
+    "sabre":"saber",
+    "sailor":"saber",
+    
     }
