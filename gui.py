@@ -27,12 +27,41 @@ class GUI:
         self.mWindow.mainloop()
         #while True:
         #    self.mWindow.update()
+
+    def StringMessage(self,message):
+        self.mWindow.title("MESSAGE")
+        x = self.mWindow.winfo_screenwidth()
+        y = self.mWindow.winfo_screenheight()
+        self.mWindow.geometry("300x165+{0}+{1}".format(int(x/2 - 150),int(y/2 - 100)))
+        tkinter.Label(self.mWindow, text = message, fg = "black", bg = "white").pack(fill = "x", pady = 20, ipady = 10)
+        tkinter.Button(self.mWindow, text = "Ok", bg = "blue" , command = self.mWindow.quit).pack(ipadx = 20)
+        def end(aaa):
+            #self.mWindow.destory()
+            self.mWindow.quit()
+
+        self.mWindow.bind("<Return>", end)
+        self.mFrame.pack()
+        
+        
+        self.mWindow.mainloop()
+
+    def YesNo(self,message):
+        self.mWindow.title("QUESTION")
+        x = self.mWindow.winfo_screenwidth()
+        y = self.mWindow.winfo_screenheight()
+        self.mWindow.geometry("300x165+{0}+{1}".format(int(x/2 - 150),int(y/2 - 100)))
+        tkinter.Label(self.mWindow, text = message, fg = "black", bg = "white").pack(fill = "x", pady = 20, ipady = 10)
+        tkinter.Button(self.mWindow, text = "Yes", bg = "green" , command = self.mWindow.quit).pack(ipadx = 20, padx = 50, side = LEFT)
+        tkinter.Button(self.mWindow, text = "No", bg = "green" , command = self.mWindow.quit).pack(ipadx = 20, padx = 20, side = LEFT)
+        self.mFrame.pack()
+        
+        
+        self.mWindow.mainloop()
+
             
 
-# Error, message, yes/no
+def main():
+    new = GUI()
+    new.YesNo("You done effed up?")
 
-# def main():
-#     new = GUI()
-#     new.ErrorWindow("You done effed up.")
-
-# main()
+main()
