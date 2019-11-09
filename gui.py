@@ -10,16 +10,21 @@ class GUI:
 # tkinter.messagebox.showinfo("Alert Message", "This is just a alert message!")
 # yesBtn = tkinter.Button(top_frame, text = "YES", fg = "green").pack()
 # tkinter.Label(window, text = "Welcome to your SABER command line! Say one of these commands to see something cool. Waiting for commands...", fg = "white", bg = "black").pack(fill = "x")
-    
+        
     def ErrorWindow(self,message):
         self.mWindow.title("ERROR")
-        self.mWindow.geometry("300x65+500+350")
+        x = self.mWindow.winfo_screenwidth()
+        y = self.mWindow.winfo_screenheight()
+        self.mWindow.geometry("300x65+{0}+{1}".format(int(x/2 - 150),int(y/2 - 32)))
         # set_to_foreground = ctypes.windll.user32.SetForegroundWindow
         # tkinter.messagebox.showinfo("Alert Message", "This is just a alert message!")
         tkinter.Label(self.mWindow, text = message, fg = "white", bg = "black").pack(fill = "x", pady = 20, ipady = 10)
         tkinter.Button(self.mWindow, text = "Ok", command = self.mWindow.quit).pack()
         # set_to_foreground(self.mWindow.winfo_id())
-        self.mFrame.bind("<Return>", self.mWindow.quit)
+        #def end(event):
+        #    self.mWindow.destory()
+
+        #self.mWindow.bind("<Enter>", end)
         self.mFrame.pack()
         
         self.mWindow.mainloop()
