@@ -63,6 +63,19 @@ def match_commands(a1,a2,a3):
             breakPast = False
             if item == "pie":
                 action += "py"
+            else:
+                action += item.strip()
+            continue
+        if item.strip()[-1] == ".":
+            breakPast = True
+            action += item.strip()
+            continue
+        if breakPast:
+            breakPast = False
+            if item == "pie":
+                action += "py"
+            else:
+                action += item.strip()
             continue
         if baseCommand:
             baseCommand = False
@@ -77,7 +90,7 @@ def match_commands(a1,a2,a3):
             baseCommand = True
             action = ""
             continue
-        if item.strip() == "dot":
+        if item.strip() == "dot"or item.strip() == ".":
             action += "."
             breakPast = True
             continue

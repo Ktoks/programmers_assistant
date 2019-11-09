@@ -18,30 +18,38 @@ def fix_word(target,options,accuracy):
     #this function receives a target string and a list of optional strings it
     #   might match. It returns the highest accuracy option if it is within
     #   _accuracy_ of target. Otherwise, raises an exception for InvalidCommand
+    print(options)
     tests = []
     for i in range(len(options)):
         x = fix_word_R(target,options[i])
         x = (2*x)/(len(target) + len(options[i]))
         tests.append([i,x])
     #check all
+    print(tests)
     best = 0
     tests = sort_col(tests,1)
     tests.reverse()
     bests = 1
     while True:
-        if bests < len(tests) and abs(tests[bests][1] - tests[0][1]) < 0.01 :
-            bests += 1
+        print(tests)
+        if bests < len(tests):
+            if abs(tests[bests][1] - tests[0][1]) < 0.01 :
+                bests += 1
+            else:
+                break
         else:
             break
-    if bests > 2 and tests[-0][1] > accuracy:
-        message = gui.GUI()
-        message.ErrorWindow("Command failed: '"+target+
-                              "'too vague, "+str(bests) +
-                              " possible interpretations.")
-        raise InvalidCommand
-    if bests > 1 and tests[0][1] > accuracy:
+    if bests > 2: 
+        if tests[-0][1] > accuracy:
+            message = gui.GUI()
+            message.ErrorWindow("Command failed: '"+target+
+                                "'too vague, "+str(bests) +
+                                " possible interpretations.")
+            raise InvalidCommand
+    if bests > 1:
+        if tests[0][1] > accuracy:
         #This isn't implemented right now
-        print("There's more than 1 best option. Idk what to do with this.  Total:",bests)
+            print("There's more than 1 best option. Idk what to do with this.  Total:",bests)
     elif tests[0][1] > accuracy:
         #print(tests)
         return options[tests[0][0]]
@@ -122,33 +130,43 @@ def analyzeSentence(sentence):
             return
         #args = ["directory","command"]
         
-        directoryList = args[0].split('slash')
-        if directoryList[0] == '':
-            directoryList[0] = '~'
-        #directoryList = ['one','two','three']
-        #or directoryList = ['~','one','two','three']
-
-        #Theoretical stuff:       
-        start = 0
-        if directoryList[0] == "~":
-            workingDir = "~"
-            start = 1
+        if args[0].split() == "here":
+            finalDirectory = "."
+        elif args[0].split() == "home":
+            finalDirectory = ""
         else:
-            workingDir = BASE_DIRECTORY
-        for i in range(start,len(directoryList)):
-            working = directoryList[i].lower().strip()
-            if len(working) > 0:
-                Dirs = []
-                for [dirpath, dirnames, filenames] in walk(workingDir):
-                    Dirs.extend(dirnames)
-                    break #Best for loop 2019
-                #print("Working:",working)
-                #print("Working Directory:",workingDir)
-                #print("Options:",dirnames)
-                new = fix_word(working,Dirs,AUTOCOMPLETE_ACCURACY)
-                #print("ValidatedDir:",new)
-                workingDir += new + "\\"
-        finalDirectory = workingDir
+            if "/" in args[0]:
+                directoryList = args[0].split(" / ")
+            else:
+                directoryList = args[0].split('slash')
+            if directoryList[0] == '':
+                directoryList[0] = '~'
+            #directoryList = ['one','two','three']
+            #or directoryList = ['~','one','two','three']
+
+            #Theoretical stuff:       
+            start = 0
+            if directoryList[0] == "~":
+                workingDir = "~"
+                start = 1
+            else:
+                workingDir = BASE_DIRECTORY
+            for i in range(start,len(directoryList)):
+                working = directoryList[i].lower().strip()
+                if len(working) > 0:
+                    #Dirs = []
+                    #for [dirpath, dirnames, filenames] in walk(workingDir):
+                    #    Dirs.extend(dirnames)
+                    #    break #Best for loop 2019
+                    Dirs = next(walk('.'))[1]
+                    #print("Working:",working)
+                    #print("Working Directory:",workingDir)
+                    #print("DIRS:",Dirs)
+                    #print("Options:",dirnames)
+                    new = fix_word(working,Dirs,AUTOCOMPLETE_ACCURACY)
+                    #print("ValidatedDir:",new)
+                    workingDir += new + "\\"
+            finalDirectory = workingDir
 
         ##DEBUG!!
         #print(">"+args[1]+"<")
@@ -188,8 +206,8 @@ def analyzeSentence(sentence):
 #message(window,"waaaaa","aaaaaaa",0)
 #>>>>>>> Stashed changes
 
-analyzeSentence("dog slash whie slash extralong slash scruffy python run sabre dot pie")
-print("------")
-analyzeSentence("dog slash whie slash extralong python run sabre dot pie and relocate scruffy and cd back and make clean")
-print("------")
-analyzeSentence("dog python kappa")
+#analyzeSentence("dog slash whie slash extralong slash scruffy python run sabre dot pie")
+#print("------")
+#analyzeSentence("dog slash whie slash extralong python run sabre dot pie and relocate scruffy and cd back and make clean")
+#print("------")
+analyzeSentence("slash desktop relocate back")
