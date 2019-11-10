@@ -102,8 +102,8 @@ def match_commands(a1,a2,a3):
 
             action = tools.fix_word(a3[-1]+".py", things,AUTOCOMPLETE_ACCURACY)
                 
-            if len(action) > 0:
-                commands.append(action)
+    if len(action) > 0:
+        commands.append(action)
     return commands
     #Return string of command to execute
 
