@@ -135,6 +135,7 @@ def show_display(a3):
         p = p.split(b"\n")
         for item in p:
             finalOut.append(item.decode("utf-8"))
-        #brief += "\n" + p
+        print(finalOut) 
+	#brief += "\n" + p
         #message = gui.GUI()
         #message.MessageWindow(brief)
