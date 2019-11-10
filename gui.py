@@ -68,4 +68,4 @@ def main():
     # new.StringMessage("Output here.")
     new.ErrorWindow("Error")
 
-main()
+# main()
